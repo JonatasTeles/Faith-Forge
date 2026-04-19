@@ -1,0 +1,452 @@
+.cabecalho_botoes {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+section {
+    padding: var(--padding-secao);
+}
+
+.secao_titulo {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.secao_titulo h2 {
+    font-size: var(--tamanho-3xl);
+    font-weight: bold;
+    color: var(--cor-texto-principal);
+    margin-bottom: 0.5rem;
+}
+
+.secao_titulo p {
+    color: var(--cor-texto-suave);
+    font-size: var(--tamanho-md);
+}
+
+.hero {
+    background-color: var(--cor-fundo-escuro);
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: var(--padding-secao);
+    gap: 3rem;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-size: var(--tamanho-hero);
+    font-weight: bold;
+    color: var(--cor-texto-claro);
+    line-height: 1.2;
+    margin-bottom: 1.1rem;
+}
+
+.hero h1 span {
+    color: var(--cor-primaria);
+}
+
+.hero_desc {
+    color: var(--cor-texto-fraco);
+    font-size: var(--tamanho-lg);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 32rem;
+}
+
+.hero_botoes {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.hero_stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.hero_stat_valor {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--cor-primaria);
+}
+
+.hero_stat_label {
+    font-size: var(--tamanho-sm);
+    color: var(--cor-texto-fraco);
+}
+
+.hero_imagem_container {
+    position: relative;
+}
+
+.hero_imagem {
+    width: 100%;
+    height: 28rem;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    opacity: 0.5;
+}
+
+.hero_citacao {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    background-color: var(--cor-fundo-escuro);
+    border: 1px solid var(--cor-primaria);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+}
+
+.hero_citacao p {
+    font-size: 0.85rem;
+    color: var(--cor-texto-claro);
+    font-style: italic;
+    margin-bottom: 0.375rem;
+    line-height: 1.5;
+}
+
+.hero_citacao span {
+    font-size: 0.78rem;
+    color: var(--cor-primaria);
+}
+
+.como_funciona {
+    background-color: var(--cor-fundo-sutil);
+}
+
+.steps_container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.step {
+    padding: 2rem 1.75rem;
+    min-width: 16rem;
+    max-width: 22rem;
+    position: relative;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.step:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-lg);
+}
+
+.step_numero {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--cor-primaria);
+    opacity: 0.1;
+    line-height: 1;
+}
+
+.step_icone {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.step h3 {
+    font-size: 1.05rem;
+    color: var(--cor-texto-principal);
+    margin-bottom: 0.625rem;
+}
+
+.step p {
+    font-size: 0.875rem;
+    color: var(--cor-texto-suave);
+    line-height: 1.7;
+}
+
+.seta_step {
+    display: flex;
+    align-items: center;
+    color: var(--cor-borda);
+    font-size: 1.5rem;
+    padding: 0 0.25rem;
+}
+
+.metodologia {
+    background-color: var(--cor-fundo-medio);
+}
+
+.metodologia_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.75rem;
+    align-items: start;
+    max-width: 68rem;
+    margin: 0 auto;
+}
+
+.metodologia_texto h2 {
+    font-size: var(--tamanho-2xl);
+    color: var(--cor-texto-claro);
+    margin-bottom: 1.25rem;
+    line-height: 1.3;
+}
+
+.metodologia_texto p {
+    color: var(--cor-texto-card-claro);
+    font-size: var(--tamanho-base);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.metodologia_texto strong {
+    color: var(--cor-texto-claro);
+}
+
+.metodologia_cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.metodologia_card {
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    transition: background-color var(--transicao);
+}
+
+.metodologia_card:hover {
+    background-color: rgba(255, 255, 255, 0.11);
+}
+
+.metodologia_card_icone {
+    font-size: 1.375rem;
+    margin-bottom: 0.625rem;
+}
+
+.metodologia_card h4 {
+    color: var(--cor-texto-claro);
+    font-size: var(--tamanho-base);
+    margin-bottom: 0.375rem;
+}
+
+.metodologia_card p {
+    color: var(--cor-texto-card-claro);
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+.cta_banner {
+    background-color: var(--cor-fundo-escuro);
+    text-align: center;
+    padding: var(--padding-secao);
+}
+
+.cta_banner .cta_icone {
+    font-size: 3rem;
+    margin-bottom: 1.25rem;
+}
+
+.img_logo {
+    width: 50px;
+    justify-self: center;
+}
+
+.cta_banner h2 {
+    font-size: var(--tamanho-3xl);
+    color: var(--cor-texto-claro);
+    margin-bottom: 0.875rem;
+}
+
+.cta_banner p {
+    color: var(--cor-texto-fraco);
+    font-size: var(--tamanho-md);
+    max-width: 31rem;
+    margin: 0 auto 1.875rem;
+    line-height: 1.7;
+}
+
+.sobre_hero {
+    background-color: var(--cor-fundo-escuro);
+    text-align: center;
+    padding: var(--padding-secao);
+}
+
+.sobre_hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: bold;
+    color: var(--cor-texto-claro);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.sobre_hero h1 span {
+    color: var(--cor-primaria);
+}
+
+.sobre_hero p {
+    color: var(--cor-texto-fraco);
+    font-size: var(--tamanho-lg);
+    max-width: 36rem;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.sobre_conteudo {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: var(--padding-secao);
+}
+
+.sobre_conteudo h2 {
+    font-size: var(--tamanho-2xl);
+    color: var(--cor-texto-principal);
+    margin-bottom: 1.5rem;
+}
+
+.sobre_conteudo p {
+    color: var(--cor-texto-medio);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+    font-size: var(--tamanho-base);
+}
+
+.teologia_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 1rem;
+    margin-top: 1.875rem;
+}
+
+.teologia_card {
+    padding: 1.25rem;
+    border-left: 3px solid var(--cor-primaria);
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.teologia_card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-md);
+}
+
+.teologia_card h4 {
+    color: var(--cor-texto-principal);
+    font-size: var(--tamanho-base);
+    margin-bottom: 0.375rem;
+}
+
+.teologia_card p {
+    color: var(--cor-texto-suave);
+    font-size: var(--tamanho-sm);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.confissao_lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.875rem;
+}
+
+.confissao_item {
+    padding: 1.5rem;
+    transition: box-shadow var(--transicao);
+}
+
+.confissao_item:hover {
+    box-shadow: var(--sombra-md);
+}
+
+.confissao_item h4 {
+    color: var(--cor-texto-principal);
+    font-size: var(--tamanho-md);
+    margin-bottom: 0.5rem;
+}
+
+.confissao_item p {
+    color: var(--cor-texto-suave);
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.7;
+}
+
+.sobre_cta {
+    text-align: center;
+    padding: var(--padding-secao);
+}
+
+.sobre_cta h2 {
+    font-size: var(--tamanho-2xl);
+    color: var(--cor-texto-principal);
+    margin-bottom: 0.875rem;
+}
+
+.sobre_cta p {
+    color: var(--cor-texto-suave);
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    .hero_imagem_container {
+        display: none;
+    }
+
+    .metodologia_grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .steps_container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .seta_step {
+        transform: rotate(90deg);
+    }
+
+    .teologia_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .menu {
+        display: none;
+    }
+
+    .cabecalho_botoes .btn_secundario {
+        display: none;
+    }
+
+    .metodologia_cards {
+        grid-template-columns: 1fr;
+    }
+
+    .teologia_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer_topo {
+        flex-direction: column;
+    }
+
+    .footer_colunas {
+        gap: 1.5rem;
+    }
+}
