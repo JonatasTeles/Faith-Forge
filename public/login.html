@@ -41,7 +41,8 @@
                         <label for="login_senha">Senha</label>
                         <div class="campo_senha">
                             <input type="password" id="login_senha" placeholder="••••••••" required>
-                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('login_senha', this)"><i data-lucide="eye"></i></button>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('login_senha', this)"><i
+                                    data-lucide="eye"></i></button>
                         </div>
                     </div>
 
@@ -89,14 +90,12 @@
 
         var emailVar = login_email.value;
         var senhaVar = login_senha.value;
+        sumirMensagem();
 
         if (emailVar == "" || senhaVar == "") {
             msgErro.textContent = "Por favor, preencha todos os campos.";
             msgErro.classList.add('visivel');
             return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -123,11 +122,11 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
+                        window.location = "dashboard/dashboard.html";
+                    }, 1000);
 
                 });
 

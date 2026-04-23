@@ -43,8 +43,10 @@
                     <div class="campo_grupo">
                         <label for="cad_senha">Senha</label>
                         <div class="campo_senha">
-                            <input type="password" id="cad_senha" placeholder="Mínimo 8 caracteres" oninput="atualizarForca()" required>
-                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_senha', this)"><i data-lucide="eye"></i></button>
+                            <input type="password" id="cad_senha" placeholder="Mínimo 8 caracteres"
+                                oninput="atualizarForca()" required>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_senha', this)"><i
+                                    data-lucide="eye"></i></button>
                         </div>
                         <div class="forca_senha_barras">
                             <div class="forca_barra" id="barra1"></div>
@@ -58,11 +60,13 @@
                         <label for="cad_confirma">Confirmar senha</label>
                         <div class="campo_senha">
                             <input type="password" id="cad_confirma" placeholder="Repita a senha" required>
-                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_confirma', this)"><i data-lucide="eye"></i></button>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_confirma', this)"><i
+                                    data-lucide="eye"></i></button>
                         </div>
                     </div>
 
-                    <button type="button" class="btn_principal btn_bloco" onclick="cadastrar()">Criar conta</button>
+                    <button type="button" id="btn_cad" class="btn_principal btn_bloco" onclick="cadastrar()">Criar
+                        conta</button>
                 </form>
 
                 <div class="auth_rodape">
@@ -81,8 +85,10 @@
 
 <script>
     const msgErro = document.getElementById('cad_erro');
+    const btnCad = document.getElementById('btn_cad');
 
     function cadastrar() {
+        btnCad.disabled = true;
         var nomeVar = cad_nome.value.trim();
         var emailVar = cad_email.value.trim();
         var senhaVar = cad_senha.value;
@@ -96,18 +102,22 @@
             confirmacaoSenhaVar == ""
         ) {
             mostrarErro("Por favor, preencha todos os campos.");
+            btnCad.disabled = false;
             return false;
         }
         if (!emailVar.includes('@') || !emailVar.includes('.')) {
             mostrarErro("Email inválido");
+            btnCad.disabled = false;
             return false;
         }
         if (senhaVar !== confirmacaoSenhaVar) {
             mostrarErro("As senhas não coincidem.");
+            btnCad.disabled = false;
             return false;
         }
         if (senhaVar.length < 8) {
             mostrarErro("A senha deve ter pelo menos 8 caracteres.");
+            btnCad.disabled = false;
             return false;
         }
 
@@ -126,13 +136,13 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    msgErro.textContent = "Cadastro realizado com sucesso!";
-                    msgErro.classList.add('visivel');
+                    btnCad.textContent = "Sucesso! Redirecionando";
 
                     setTimeout(() => {
                         window.location = "login.html";
                     }, "2000");
                 } else {
+                    btnCad.disable = false;
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
             })
