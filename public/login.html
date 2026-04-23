@@ -1,102 +1,98 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AquaTech | Login</title>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Entrar — FaithForge</title>
+    <link rel="icon" href="assets/imgs/LogoFaithForge.png">
     <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/logCas.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
 
-    <!--Header-->
+    <div class="pagina_auth">
 
-    <div class="header">
-        <div class="container">
-            <h1 class="titulo">AquaTech</h1>
-            <ul class="navbar">
-                <li>
-                    <a href="index.html">Inicial</a>
-                </li>
-                <li>
-                    <a href="simulador.html">Simulador</a>
-                </li>
-                <li>|</li>
-                <li class="agora">
-                    <a href="#">Login</a>
-                </li>
-                <li>
-                    <a href="cadastro.html">Cadastro</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+        <a href="index.html" class="auth_logo">
+            <div class="logo_icone"><img src="assets/imgs/LogoFaithForge.png" alt="Logo Faith Forge"></div>
+            <span class="logo_nome">Faith<span>Forge</span></span>
+        </a>
 
-
-    <div class="login">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
+        <div class="auth_card">
+            <div class="auth_card_header">
+                <h1>Bem vindo de volta!</h1>
+                <p>Continue forjando sua fé. Entre em sua conta.</p>
             </div>
-        </div>
-        <div class="container">
-            <div class="card card-login">
-                <h2>Olá de volta!</h2>
+            <div class="auth_card_corpo">
                 <div class="formulario">
-                    <div class="campo">
-                        <span>E-mail:</span>
-                        <input id="email_input" type="text" placeholder="Login">
+
+                    <div id="login_erro" class="msg_erro"></div>
+
+                    <div class="campo_grupo">
+                        <label for="login_email">Email</label>
+                        <input type="email" id="login_email" placeholder="seu@email.com" required>
                     </div>
-                    <div class="campo">
-                        <span>Senha:</span>
-                        <input id="senha_input" type="password" placeholder="******">
+
+                    <div class="campo_grupo">
+                        <label for="login_senha">Senha</label>
+                        <div class="campo_senha">
+                            <input type="password" id="login_senha" placeholder="••••••••" required>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('login_senha', this)"><i data-lucide="eye"></i></button>
+                        </div>
                     </div>
-                    <button class="botao" onclick="entrar()">Entrar</button>
+
+                    <div class="esqueci_senha">
+                        <a href="#">Esqueci minha senha</a>
+                    </div>
+
+                    <button class="btn_principal btn_bloco" onclick="entrar()">Entrar</button>
                 </div>
 
-                <div id="div_aguardar" class="loading-div">
-                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                <div class="auth_rodape">
+                    Não tem conta? <a href="cadastro.html">Crie uma aqui</a>
                 </div>
-
-                <div id="div_erros_login"></div>
             </div>
         </div>
-    </div>
 
-    <!--footer inicio-->
-    <div class="footer">
-        <div class="container">
-            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-            <span class="version">v1.0.0</span>
-        </div>
+        <a href="index.html" class="auth_voltar">← Voltar para o início</a>
+
     </div>
-    <!--footer fim-->
 
 </body>
 
 </html>
 
 <script>
+    const msgErro = document.getElementById('login_erro');
 
+    function alternarSenha(idCampo, btn) {
+        const campo = document.getElementById(idCampo);
+        const icone = btn.querySelector('[data-lucide]');
+        if (campo.type === 'password') {
+            campo.type = 'text';
+            icone.setAttribute('data-lucide', 'eye-off');
+        } else {
+            campo.type = 'password';
+            icone.setAttribute('data-lucide', 'eye');
+        }
+
+        lucide.createIcons();
+    }
+
+    lucide.createIcons();
 
     function entrar() {
-        aguardar();
 
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+        var emailVar = login_email.value;
+        var senhaVar = login_senha.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+            msgErro.textContent = "Por favor, preencha todos os campos.";
+            msgErro.classList.add('visivel');
             return false;
         }
         else {
@@ -153,7 +149,7 @@
     }
 
     function sumirMensagem() {
-        cardErro.style.display = "none"
+        msgErro.classList.remove('visivel');
     }
 
 </script>
