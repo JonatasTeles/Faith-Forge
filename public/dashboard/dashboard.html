@@ -2,317 +2,404 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
-
-    
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-    <!-- scripts do Chart.js - 2022-1 -->
+    <title>Dashboard — FaithForge</title>
+    <link rel="icon" href="../assets/imgs/LogoFaithForge.png">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/dashB.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
-
-<!-- <body onload=" atualizarFeed()"> -->
 
 <body>
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
+    <header class="cabecalho_dashboard cabecalho_base">
+        <a href="index.html" class="logo">
+            <div class="logo_icone"><img src="../assets/imgs/LogoFaithForge.png" alt="Logo Faith Forge"></div>
+            <span class="logo_nome">Faith<span>Forge</span></span>
+        </a>
+        <nav>
+            <ul class="menu">
+                <li><a href="dashboard.html" class="ativo">Dashboard</a></li>
+                <li><a href="biblioteca.html">Biblioteca</a></li>
+            </ul>
+        </nav>
+        <div class="header_direita">
+            <div class="usuario_info">
+                <div class="usuario_avatar" id="avatar_letra"></div>
+                <span class="usuario_nome" id="usuario_nome_header"></span>
+            </div>
+            <a href="../index.html" class="btn_secundario">Sair</a>
+        </div>
+    </header>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+    <div class="dashboard_conteudo">
+
+        <div class="bem_vindo_banner">
+            <div class="subtitulo">Bem vindo de volta</div>
+            <h1 id="dash_nome">Usuário</h1>
+            <p>
+                Você tem forjado uma fé inabalável desde
+                <span id="dash_data"></span>.
+                Continue avançando, cada questão respondida é ferro afiando ferro.
+            </p>
+        </div>
+
+        <div id="stats_row" class="stats_row"></div>
+
+        <div class="dashboard_secoes">
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+                <div class="painel card_base">
+                    <h3>📊 Evolução da Convicção</h3>
+                    <div class="painel_grafico">
+                        <canvas id="grafico_linha"></canvas>
+                    </div>
+                </div>
+
+                <div class="painel card_base">
+                    <h3>📚 Sessões por Tópico</h3>
+                    <div class="painel_grafico">
+                        <canvas id="grafico_barras"></canvas>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários</h3>
+            <div class="painel card_base">
+                <h3>🕒 Atividade Recente</h3>
+                <div class="atividade_lista" id="atividade_lista"></div>
+
+                <a href="biblioteca.html" class="btn_biblioteca">
+                    📚 Ir para a Biblioteca →
                 </a>
-            </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
             </div>
 
         </div>
 
-        <div class="dash">
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
-        </div>
     </div>
 
+    <footer>
+        <div class="footer_base" style="border-top: none;">
+            <p>© 2026 FaithForge. Soli Deo Gloria.</p>
+        </div>
+    </footer>
 
 </body>
 
 </html>
 
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    let proximaAtualizacao;
-
-    window.onload = exibirAquariosDoUsuario();
-
-    function exibirAquariosDoUsuario() {
-        var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-        aquarios.forEach(item => {
-            document.getElementById("btnAquario").innerHTML += `
-            <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-            `
-
-            document.getElementById("graficos").innerHTML += `
-                <div id="grafico${item.id}" class="display-none">
-                    <h3 class="tituloGraficos">
-                        <span id="tituloAquario${item.id}">${item.descricao}</span>
-                    </h3>
-                    <div class="graph">
-                        <canvas id="myChartCanvas${item.id}"></canvas>
-                    </div>
-                    <div class="label-captura">
-                        <p id="avisoCaptura${item.id}" style="color: white"></p>
-                    </div>
-                </div>
-            `
-
-            obterDadosGrafico(item.id)
-        });
-
-        if (aquarios.length > 0) {
-            exibirAquario(aquarios[0].id)
-        }
+    if (sessionStorage.ID_USUARIO == undefined) {
+        window.location = 'login.html';
     }
 
-    function alterarTitulo(idAquario) {
-        var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-        tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
-    }
+    idUsuario = sessionStorage.ID_USUARIO;
+    nomeUsuario = sessionStorage.NOME_USUARIO;
+    avatar_letra.innerHTML = nomeUsuario[0];
+    usuario_nome_header.innerHTML = nomeUsuario;
+    dash_nome.innerHTML = `${nomeUsuario}. Sua mente é a forja.`;
 
-    function exibirAquario(idAquario) {
-        let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
+    window.onload = obterDataInicio(idUsuario);
+    window.onload = obterKPIs(idUsuario);
+    window.onload = obterEvolucaoDaConviccao(idUsuario);
+    window.onload = obterSessoesPorTopico(idUsuario);
+    window.onload = obterAtividadeRecente(idUsuario);
 
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idAquario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
+    function obterDataInicio(idUsuario) {
+        fetch(`/estudos/datainicio/${idUsuario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos DI: ${JSON.stringify(resposta)}`);
+
+                        dash_data.innerHTML = resposta[0].mes_ano;
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                 }
-                elementoAtual.classList.add("display-none")
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPIs: ${error.message}`);
+            })
+    }
 
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
+    function obterKPIs(idUsuario) {
+        fetch(`/estudos/kpis/${idUsuario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos KPIs: ${JSON.stringify(resposta)}`);
+
+                        for (let i = 0; i < resposta.length; i++) {
+
+                            stats_row.innerHTML = `
+                                <div class="stat_card card_base">
+                                    <div class="stat_icone stat_icone_azul">📚</div>
+                                    <div>
+                                        <div class="stat_valor">${resposta[i].total_sessoes}</div>
+                                        <div class="stat_label">Questões Estudadas</div>
+                                    </div>
+                                </div>
+                                <div class="stat_card card_base">
+                                    <div class="stat_icone stat_icone_laranja">📈</div>
+                                    <div>
+                                        <div class="stat_valor">${resposta[i].media_geral} / 10</div>
+                                        <div class="stat_label">Média de Convicção</div>
+                                    </div>
+                                </div>
+                                <div class="stat_card card_base">
+                                    <div class="stat_icone stat_icone_azul">⭐</div>
+                                    <div>
+                                        <div class="stat_valor">${resposta[i].maior_nota}</div>
+                                        <div class="stat_label">Maior Avaliação</div>
+                                    </div>
+                                </div>
+                                <div class="stat_card card_base">
+                                    <div class="stat_icone stat_icone_laranja">⏱️</div>
+                                    <div>
+                                        <div class="stat_valor">${resposta[i].dias_ofensiva} Dias</div>
+                                        <div class="stat_label">Sequência Diaria</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
                 }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idAquario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
-
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPIs: ${error.message}`);
+            })
     }
 
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+    function obterEvolucaoDaConviccao(idUsuario) {
+        fetch(`/estudos/evodaconvic/${idUsuario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos EDC: ${JSON.stringify(resposta)}`);
 
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+                        plotarEvolucaoDaConviccao(resposta, idUsuario);
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idAquario) {
-
-        alterarTitulo(idAquario)
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico(resposta, idAquario);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ evolução da convicção: ${error.message}`);
+            })
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idAquario) {
+    function obterSessoesPorTopico(idUsuario) {
+        fetch(`/estudos/sessoesptop/${idUsuario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos SPT: ${JSON.stringify(resposta)}`);
 
-        console.log('iniciando plotagem do gráfico...');
+                        plotarSessoesPorTopico(resposta, idUsuario);
 
-        // Criando estrutura para plotar gráfico - labels
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ sessões por tópico: ${error.message}`);
+            })
+    }
+
+    function obterAtividadeRecente(idUsuario) {
+        fetch(`/estudos/atvrecente/${idUsuario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos AR: ${JSON.stringify(resposta)}`);
+
+                        for (let i = 0; i < resposta.length; i++) {
+
+                            let span_categoria = ``;
+
+                            if (resposta[i].categoria === 'Filosofia') {
+                                span_categoria = `<span class="atividade_categoria" style="background-color: rgba(58,80,107,0.12); color: #3A506B;">${resposta[i].categoria}</span>`;
+                            } else if (resposta[i].categoria === 'História') {
+                                span_categoria = `<span class="atividade_categoria" style="background-color: rgba(255,140,0,0.1); color: #CC7000;">${resposta[i].categoria}</span>`;
+                            } else if (resposta[i].categoria === 'Ciência') {
+                                span_categoria = `<span class="atividade_categoria" style="background-color: rgba(34,197,94,0.1); color: #16a34a;">${resposta[i].categoria}</span>`;
+                            } else if (resposta[i].categoria === 'Escritura') {
+                                span_categoria = `<span class="atividade_categoria" style="background-color: rgba(168,85,247,0.1); color: #7c3aed;">${resposta[i].categoria}</span>`;
+                            } else if (resposta[i].categoria === 'Ética') {
+                                span_categoria = `<span class="atividade_categoria" style="background-color: rgba(239,68,68,0.1); color: #dc2626;">${resposta[i].categoria}</span>`;
+                            }
+
+                            atividade_lista.innerHTML += `
+                            <div class="atividade_item">
+                                ${span_categoria}
+                                <span class="atividade_titulo">${resposta[i].titulo}</span>
+                                <span class="atividade_nota">${resposta[i].nota_conviccao}</span>
+                                <span class="atividade_data">${resposta[i].data_estudo}</span>
+                            </div>
+                            `;
+                        }
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ atividade recente: ${error.message}`)
+            })
+    }
+
+    function plotarEvolucaoDaConviccao(resposta, idUsuario) {
+
+        console.log('Iniciando plotagem do gráfico EDC...');
+
         let labels = [];
+        let data = [];
 
-        // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Umidade',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            },
-            {
-                label: 'Temperatura',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                tension: 0.1
+                label: 'Convicção',
+                data: data,
+                borderColor: '#FF8C00',
+                backgroundColor: 'rgba(255, 140, 0, 0.1)',
+                borderWidth: 2.5,
+                pointBackgroundColor: '#FF8C00',
+                pointRadius: 4,
+                fill: true,
+                tension: 0.2
             }]
         };
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+        console.log('----------------------------------------------');
+        console.log('Estes dados foram recebidos pela funcao "obterEvolucaoDaConviccao" e passados para "plotarEvolucaoDaConviccao":');
+        console.log(resposta);
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
-            dados.datasets[1].data.push(registro.temperatura);
+        for (let i = 0; i < resposta.length; i++) {
+            labels.push(resposta[i].mes);
+            data.push(resposta[i].media_conviccao);
         }
 
         console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('O gráfico SPT será plotado com os respectivos valores:')
         console.log('Labels:')
         console.log(labels)
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
 
-        // Criando estrutura para plotar gráfico - config
         const config = {
             type: 'line',
             data: dados,
-        };
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 10,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                }
+            }
+        }
 
-        // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idAquario}`),
+            document.getElementById('grafico_linha'),
             config
         );
-
-        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
     }
 
+    function plotarSessoesPorTopico(resposta, idUsuario) {
 
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
+        console.log('Iniciando plotagem do gráfico SPT...');
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idAquario, dados, myChart) {
+        let labels = [];
+        let data = [];
+        let backgroundColor = [];
 
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Sessões',
+                data: data,
+                backgroundColor: backgroundColor,
+                borderRadius: 6
+            }]
+        };
 
+        console.log('----------------------------------------------');
+        console.log('Estes dados foram recebidos pela funcao "obterSessoesPorTopico" e passados para "plotarSessoesPorTopico":');
+        console.log(resposta);
 
-        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
+        for (let i = 0; i < resposta.length; i++) {
 
-                    obterdados(idAquario);
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                    avisoCaptura.innerHTML = ""
-
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-                        dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+            if (resposta[i].categoria == 'Filosofia') {
+                backgroundColor.push('#3A506B');
+            } else if (resposta[i].categoria == 'História') {
+                backgroundColor.push('#CC7000');
+            } else if (resposta[i].categoria == 'Ciência') {
+                backgroundColor.push('#16a34a');
+            } else if (resposta[i].categoria == 'Escritura') {
+                backgroundColor.push('#7c3aed');
+            } else if (resposta[i].categoria == 'Ética') {
+                backgroundColor.push('#dc2626');
             }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
 
+            labels.push(resposta[i].categoria);
+            data.push(resposta[i].total_sessoes);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico SPT será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                }
+            }
+        };
+
+        let myChart = new Chart(
+            document.getElementById('grafico_barras'),
+            config
+        );
     }
 </script>

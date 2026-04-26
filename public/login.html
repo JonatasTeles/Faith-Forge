@@ -41,8 +41,7 @@
                         <label for="login_senha">Senha</label>
                         <div class="campo_senha">
                             <input type="password" id="login_senha" placeholder="••••••••" required>
-                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('login_senha', this)"><i
-                                    data-lucide="eye"></i></button>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('login_senha', this)"><i data-lucide="eye"></i></button>
                         </div>
                     </div>
 
@@ -50,7 +49,7 @@
                         <a href="#">Esqueci minha senha</a>
                     </div>
 
-                    <button class="btn_principal btn_bloco" onclick="entrar()">Entrar</button>
+                    <button id="btn_login" class="btn_principal btn_bloco" onclick="entrar()">Entrar</button>
                 </div>
 
                 <div class="auth_rodape">
@@ -69,6 +68,7 @@
 
 <script>
     const msgErro = document.getElementById('login_erro');
+    const btnLogin = document.getElementById('btn_login');
 
     function alternarSenha(idCampo, btn) {
         const campo = document.getElementById(idCampo);
@@ -122,7 +122,8 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    btnLogin.textContent = 'Entrando!';
 
                     setTimeout(function () {
                         window.location = "dashboard/dashboard.html";
@@ -146,6 +147,16 @@
 
         return false;
     }
+
+    const campos = [document.getElementById('login_email'), document.getElementById('login_senha')];
+
+    campos.forEach(campo => {
+        campo.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                entrar();
+            }
+        })
+    })
 
     function sumirMensagem() {
         msgErro.classList.remove('visivel');
