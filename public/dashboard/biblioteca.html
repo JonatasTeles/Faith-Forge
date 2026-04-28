@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca — FaithForge</title>
+    <link rel="icon" href="../assets/imgs/LogoFaithForge.png">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/dashB.css">
+</head>
+
+<body>
+    <div id="overlay_explicacao" class="overlay">
+        <div class="explicacao">
+            <div class="explicacao_header">
+                <div class="explicacao_topo">
+                    <div class="explicacao_badges">
+                        <span id="explicacao_categoria" class="questao_categoria"></span>
+                        <span id="explicacao_dificuldade" class="questao_dificuldade"></span>
+                    </div>
+                    <button class="btn_fechar" onclick="fecharExplicacao()">✕</button>
+                </div>
+                <h2 id="explicacao_titulo"></h2>
+            </div>
+            <div class="explicacao_corpo">
+                <div class="explicacao_resumo" id="explicacao_resumo"></div>
+                <h3>📖 Resposta Completa</h3>
+                <p class="explicacao_resposta" id="explicacao_resposta"></p>
+                <div class="explicacao_escritura" id="explicacao_escritura"></div>
+            </div>
+        </div>
+    </div>
+
+    <header class="cabecalho_dashboard cabecalho_base">
+        <a href="index.html" class="logo">
+            <div class="logo_icone"><img src="../assets/imgs/LogoFaithForge.png" alt="Logo Faith Forge"></div>
+            <span class="logo_nome">Faith<span>Forge</span></span>
+        </a>
+        <nav>
+            <ul class="menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="biblioteca.html" class="ativo">Biblioteca</a></li>
+            </ul>
+        </nav>
+        <div class="header_direita">
+            <div class="usuario_info">
+                <div class="usuario_avatar" id="avatar_letra">U</div>
+                <span class="usuario_nome" id="usuario_nome_header">Usuário</span>
+            </div>
+            <a href="../index.html" class="btn_secundario">Sair</a>
+        </div>
+    </header>
+
+    <div class="biblioteca_hero">
+        <span class="badge badge_laranja">Apologética Reformada</span>
+        <h1>Biblioteca Apologética</h1>
+        <p>Aborde as questões mais complexas da fé cristã com rigor acadêmico, evidências históricas e fundamentos bíblicos.</p>
+    </div>
+
+    <div class="biblioteca_conteudo">
+
+        <div class="filtros_painel card_base">
+            <div class="busca_container">
+                <span class="busca_icone">🔍</span>
+                <input type="text" id="busca_input" class="input_busca" placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
+            </div>
+
+            <div class="filtros_botoes">
+                <span>Categoria:</span>
+                <button class="filtro_btn filtro_cat ativo" data-cat="All" onclick="selecionarCategoria(this)">Todos</button>
+                <button class="filtro_btn filtro_cat" data-cat="Filosofia" onclick="selecionarCategoria(this)">Filosofia</button>
+                <button class="filtro_btn filtro_cat" data-cat="História" onclick="selecionarCategoria(this)">História</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ciência" onclick="selecionarCategoria(this)">Ciência</button>
+                <button class="filtro_btn filtro_cat" data-cat="Escritura" onclick="selecionarCategoria(this)">Escritura</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ética" onclick="selecionarCategoria(this)">Ética</button>
+            </div>
+
+            <div class="filtros_botoes">
+                <span>Dificuldade:</span>
+                <button class="filtro_btn filtro_dif ativo" data-dif="All" onclick="selecionarDificuldade(this)">Todas</button>
+                <button class="filtro_btn filtro_dif" data-dif="Fundação" onclick="selecionarDificuldade(this)">Fundação</button>
+                <button class="filtro_btn filtro_dif" data-dif="Intermediário" onclick="selecionarDificuldade(this)">Intermediário</button>
+                <button class="filtro_btn filtro_dif" data-dif="Avançado" onclick="selecionarDificuldade(this)">Avançado</button>
+            </div>
+        </div>
+
+        <div id="questoes_grid" class="questoes_grid"></div>
+
+        <div id="sem_resultados" class="sem_resultados">
+            <p style="font-size: 2rem; margin-bottom: 0.75rem;">🔍</p>
+            <p style="font-size: 1.1rem; color: var(--cor-texto-suave);">Nenhuma questão encontrada.</p>
+            <p style="margin-top: 0.5rem;">Tente outro termo ou categoria.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer_base" style="border-top: none;">
+            <p>© 2026 FaithForge. Soli Deo Gloria.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+<script>
+
+    if (sessionStorage.ID_USUARIO == undefined) {
+        window.location = 'login.html';
+    }
+
+    idUsuario = sessionStorage.ID_USUARIO;
+    nomeUsuario = sessionStorage.NOME_USUARIO;
+    avatar_letra.innerHTML = nomeUsuario[0];
+    usuario_nome_header.innerHTML = nomeUsuario;
+
+    window.onload = plotarCards();
+
+    function plotarCards() {
+        fetch(`/questoes/cards`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos Cards: ${JSON.stringify(resposta)}\n ${'='.repeat(90)}`);
+
+                        for (let i = 0; i < resposta.length; i++) {
+
+                            let cor_fundo = ``;
+                            let cor_texto = ``;
+                            let cor_dif = ``;
+
+                            if (resposta[i].categoria === 'Filosofia') {
+                                cor_fundo = `rgba(58,80,107,0.12)`;
+                                cor_texto = `#3A506B`;
+                            } else if (resposta[i].categoria === 'História') {
+                                cor_fundo = `rgba(255,140,0,0.1)`;
+                                cor_texto = `#CC7000`;
+                            } else if (resposta[i].categoria === 'Ciência') {
+                                cor_fundo = `rgba(34,197,94,0.1)`;
+                                cor_texto = `#16a34a`;
+                            } else if (resposta[i].categoria === 'Escritura') {
+                                cor_fundo = `rgba(168,85,247,0.1)`;
+                                cor_texto = `#7c3aed`;
+                            } else if (resposta[i].categoria === 'Ética') {
+                                cor_fundo = `rgba(239,68,68,0.1)`;
+                                cor_texto = `#dc2626`;
+                            }
+
+                            if (resposta[i].dificuldade === 'Avançado') {
+                                cor_dif = `#d4183d`;
+                            } else if (resposta[i].dificuldade === 'Intermediário') {
+                                cor_dif = `#FF8C00`;
+                            } else if (resposta[i].dificuldade === 'Fundação') {
+                                cor_dif = `#22c55e`;
+                            }
+
+                            questoes_grid.innerHTML += `
+                                <div class="questao_card" onclick="abrirExplicacao(${resposta[i].id})">
+                                    <div class="questao_topo">
+                                        <span class="questao_categoria"
+                                            style="background-color: ${cor_fundo}; color: ${cor_texto}">
+                                            ${resposta[i].categoria}
+                                        </span>
+                                        <span class="questao_dificuldade" style="background-color:${cor_dif}">
+                                            ${resposta[i].dificuldade}
+                                        </span>
+                                    </div>
+                                    <h3>${resposta[i].titulo}</h3>
+                                    <p>${resposta[i].resumo}</p>
+                                    <div class="questao_rodape">
+                                        <div class="questao_tags"></div>
+                                        <span class="questao_seta">→</span>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Cards: ${error.message}`);
+            })
+    }
+
+    function abrirExplicacao(idQuestao) {
+        fetch(`/questoes/explicacao/${idQuestao}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos Explicação: ${JSON.stringify(resposta)}`);
+
+                        let cor_fundo = ``;
+                        let cor_texto = ``;
+                        let cor_dif = ``;
+
+                        if (resposta[0].categoria === 'Filosofia') {
+                            cor_fundo = `rgba(58,80,107,0.12)`;
+                            cor_texto = `#3A506B`;
+                        } else if (resposta[0].categoria === 'História') {
+                            cor_fundo = `rgba(255,140,0,0.1)`;
+                            cor_texto = `#CC7000`;
+                        } else if (resposta[0].categoria === 'Ciência') {
+                            cor_fundo = `rgba(34,197,94,0.1)`;
+                            cor_texto = `#16a34a`;
+                        } else if (resposta[0].categoria === 'Escritura') {
+                            cor_fundo = `rgba(168,85,247,0.1)`;
+                            cor_texto = `#7c3aed`;
+                        } else if (resposta[0].categoria === 'Ética') {
+                            cor_fundo = `rgba(239,68,68,0.1)`;
+                            cor_texto = `#dc2626`;
+                        }
+
+                        if (resposta[0].dificuldade === 'Avançado') {
+                            cor_dif = `#d4183d`;
+                        } else if (resposta[0].dificuldade === 'Intermediário') {
+                            cor_dif = `#FF8C00`;
+                        } else if (resposta[0].dificuldade === 'Fundação') {
+                            cor_dif = `#22c55e`;
+                        }
+
+                        document.getElementById('explicacao_categoria').style.backgroundColor = cor_fundo;
+                        document.getElementById('explicacao_categoria').style.color = cor_texto;
+                        document.getElementById('explicacao_dificuldade').style.backgroundColor = cor_dif;
+                        explicacao_categoria.innerHTML = resposta[0].categoria;
+                        explicacao_dificuldade.innerHTML = resposta[0].dificuldade;
+                        explicacao_titulo.innerHTML = resposta[0].titulo;
+                        explicacao_resumo.innerHTML = resposta[0].resumo;
+                        explicacao_resposta.innerHTML = resposta[0].resposta;
+                        explicacao_escritura.innerHTML = resposta[0].escritura;
+
+                        document.getElementById('overlay_explicacao').classList.add('visivel');
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Cards: ${error.message}`);
+            })
+    }
+
+    function fecharExplicacao() {
+        document.getElementById('overlay_explicacao').classList.remove('visivel');
+    }
+</script>

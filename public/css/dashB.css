@@ -430,7 +430,7 @@
     display: flex;
 }
 
-.modal {
+.explicacao {
     background-color: var(--cor-fundo-claro);
     border-radius: var(--radius-xl);
     width: min(680px, 95vw);
@@ -439,7 +439,7 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-.modal_header {
+.explicacao_header {
     background-color: var(--cor-fundo-escuro);
     padding: 1.75rem 2rem;
     position: sticky;
@@ -447,14 +447,14 @@
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
-.modal_topo {
+.explicacao_topo {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 0.75rem;
 }
 
-.modal_badges {
+.explicacao_badges {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
@@ -476,17 +476,17 @@
     color: var(--cor-texto-claro);
 }
 
-.modal_header h2 {
+.explicacao_header h2 {
     color: var(--cor-texto-claro);
     font-size: 1.2rem;
     line-height: 1.3;
 }
 
-.modal_corpo {
+.explicacao_corpo {
     padding: 1.75rem 2rem;
 }
 
-.modal_resumo {
+.explicacao_resumo {
     background-color: var(--cor-fundo-sutil);
     border-radius: var(--radius-md);
     padding: 1rem 1.25rem;
@@ -497,20 +497,20 @@
     line-height: 1.6;
 }
 
-.modal_corpo h3 {
+.explicacao_corpo h3 {
     font-size: var(--tamanho-md);
     color: var(--cor-texto-principal);
     margin: 1.25rem 0 0.625rem;
 }
 
-.modal_resposta {
+.explicacao_resposta {
     font-size: 0.875rem;
     color: var(--cor-texto-medio);
     line-height: 1.85;
     white-space: pre-line;
 }
 
-.modal_escritura {
+.explicacao_escritura {
     background-color: var(--cor-fundo-escuro);
     border-left: 4px solid var(--cor-primaria);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
