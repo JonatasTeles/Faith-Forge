@@ -25,6 +25,7 @@ function buscarExplicacao(idQuestao) {
 
     var instrucaoSQL = `
         SELECT
+            id,
             titulo,
             categoria,
             dificuldade,

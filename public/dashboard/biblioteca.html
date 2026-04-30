@@ -32,6 +32,29 @@
         </div>
     </div>
 
+    <div id="avaliacao" class="overlay">
+        <div class="avaliacao">
+            <div class="explicacao_header">
+                <div class="explicacao_topo">
+                    <h2>Nota de sua convicção</h2><br>
+                    <h2 id="avaliacao_titulo"></h2>
+                </div>
+            </div>
+            <div class="explicacao_corpo">
+                <button onclick="nota_avaliacao(1)">⭐</button>
+                <button onclick="nota_avaliacao(2)">⭐</button>
+                <button onclick="nota_avaliacao(3)">⭐</button>
+                <button onclick="nota_avaliacao(4)">⭐</button>
+                <button onclick="nota_avaliacao(5)">⭐</button>
+                <button onclick="nota_avaliacao(6)">⭐</button>
+                <button onclick="nota_avaliacao(7)">⭐</button>
+                <button onclick="nota_avaliacao(8)">⭐</button>
+                <button onclick="nota_avaliacao(9)">⭐</button>
+                <button onclick="nota_avaliacao(10)">⭐</button>
+            </div>
+        </div>
+    </div>
+
     <header class="cabecalho_dashboard cabecalho_base">
         <a href="index.html" class="logo">
             <div class="logo_icone"><img src="../assets/imgs/LogoFaithForge.png" alt="Logo Faith Forge"></div>
@@ -55,7 +78,8 @@
     <div class="biblioteca_hero">
         <span class="badge badge_laranja">Apologética Reformada</span>
         <h1>Biblioteca Apologética</h1>
-        <p>Aborde as questões mais complexas da fé cristã com rigor acadêmico, evidências históricas e fundamentos bíblicos.</p>
+        <p>Aborde as questões mais complexas da fé cristã com rigor acadêmico, evidências históricas e fundamentos
+            bíblicos.</p>
     </div>
 
     <div class="biblioteca_conteudo">
@@ -63,25 +87,36 @@
         <div class="filtros_painel card_base">
             <div class="busca_container">
                 <span class="busca_icone">🔍</span>
-                <input type="text" id="busca_input" class="input_busca" placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
+                <input type="text" id="busca_input" class="input_busca"
+                    placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
             </div>
 
             <div class="filtros_botoes">
                 <span>Categoria:</span>
-                <button class="filtro_btn filtro_cat ativo" data-cat="All" onclick="selecionarCategoria(this)">Todos</button>
-                <button class="filtro_btn filtro_cat" data-cat="Filosofia" onclick="selecionarCategoria(this)">Filosofia</button>
-                <button class="filtro_btn filtro_cat" data-cat="História" onclick="selecionarCategoria(this)">História</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ciência" onclick="selecionarCategoria(this)">Ciência</button>
-                <button class="filtro_btn filtro_cat" data-cat="Escritura" onclick="selecionarCategoria(this)">Escritura</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ética" onclick="selecionarCategoria(this)">Ética</button>
+                <button class="filtro_btn filtro_cat ativo" data-cat="All"
+                    onclick="selecionarCategoria(this)">Todos</button>
+                <button class="filtro_btn filtro_cat" data-cat="Filosofia"
+                    onclick="selecionarCategoria(this)">Filosofia</button>
+                <button class="filtro_btn filtro_cat" data-cat="História"
+                    onclick="selecionarCategoria(this)">História</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ciência"
+                    onclick="selecionarCategoria(this)">Ciência</button>
+                <button class="filtro_btn filtro_cat" data-cat="Escritura"
+                    onclick="selecionarCategoria(this)">Escritura</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ética"
+                    onclick="selecionarCategoria(this)">Ética</button>
             </div>
 
             <div class="filtros_botoes">
                 <span>Dificuldade:</span>
-                <button class="filtro_btn filtro_dif ativo" data-dif="All" onclick="selecionarDificuldade(this)">Todas</button>
-                <button class="filtro_btn filtro_dif" data-dif="Fundação" onclick="selecionarDificuldade(this)">Fundação</button>
-                <button class="filtro_btn filtro_dif" data-dif="Intermediário" onclick="selecionarDificuldade(this)">Intermediário</button>
-                <button class="filtro_btn filtro_dif" data-dif="Avançado" onclick="selecionarDificuldade(this)">Avançado</button>
+                <button class="filtro_btn filtro_dif ativo" data-dif="All"
+                    onclick="selecionarDificuldade(this)">Todas</button>
+                <button class="filtro_btn filtro_dif" data-dif="Fundação"
+                    onclick="selecionarDificuldade(this)">Fundação</button>
+                <button class="filtro_btn filtro_dif" data-dif="Intermediário"
+                    onclick="selecionarDificuldade(this)">Intermediário</button>
+                <button class="filtro_btn filtro_dif" data-dif="Avançado"
+                    onclick="selecionarDificuldade(this)">Avançado</button>
             </div>
         </div>
 
@@ -114,6 +149,8 @@
     nomeUsuario = sessionStorage.NOME_USUARIO;
     avatar_letra.innerHTML = nomeUsuario[0];
     usuario_nome_header.innerHTML = nomeUsuario;
+    let questao_atual_titulo;
+    let questao_atual_id;
 
     window.onload = plotarCards();
 
@@ -129,6 +166,7 @@
                             let cor_fundo = ``;
                             let cor_texto = ``;
                             let cor_dif = ``;
+                            let tags_juntas = ``;
 
                             if (resposta[i].categoria === 'Filosofia') {
                                 cor_fundo = `rgba(58,80,107,0.12)`;
@@ -155,6 +193,8 @@
                                 cor_dif = `#22c55e`;
                             }
 
+                            tags_juntas = `${resposta[i].tags[0]} - ${resposta[i].tags[1]} - ${resposta[i].tags[2]}`;
+
                             questoes_grid.innerHTML += `
                                 <div class="questao_card" onclick="abrirExplicacao(${resposta[i].id})">
                                     <div class="questao_topo">
@@ -169,7 +209,7 @@
                                     <h3>${resposta[i].titulo}</h3>
                                     <p>${resposta[i].resumo}</p>
                                     <div class="questao_rodape">
-                                        <div class="questao_tags"></div>
+                                        <div class="questao_tags">${tags_juntas}</div>
                                         <span class="questao_seta">→</span>
                                     </div>
                                 </div>
@@ -229,6 +269,7 @@
                         explicacao_resumo.innerHTML = resposta[0].resumo;
                         explicacao_resposta.innerHTML = resposta[0].resposta;
                         explicacao_escritura.innerHTML = resposta[0].escritura;
+                        questao_atual_titulo = resposta[0].titulo;
 
                         document.getElementById('overlay_explicacao').classList.add('visivel');
                     })
@@ -240,7 +281,16 @@
             })
     }
 
-    function fecharExplicacao() {
+    function nota_avaliacao(nota) {
+        
+    }
+
+    function fecharExplicacao(resposta) {
+
+        avaliacao_titulo.innerHTML = questao_atual_titulo;
+
+        document.getElementById('avaliacao').classList.add('visivel');
+
         document.getElementById('overlay_explicacao').classList.remove('visivel');
     }
 </script>
