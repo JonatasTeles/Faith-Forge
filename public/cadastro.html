@@ -43,10 +43,8 @@
                     <div class="campo_grupo">
                         <label for="cad_senha">Senha</label>
                         <div class="campo_senha">
-                            <input type="password" id="cad_senha" placeholder="Mínimo 8 caracteres"
-                                oninput="atualizarForca()" required>
-                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_senha', this)"><i
-                                    data-lucide="eye"></i></button>
+                            <input type="password" id="cad_senha" placeholder="Mínimo 8 caracteres" oninput="atualizarForca()" required>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_senha', this)"><i data-lucide="eye"></i></button>
                         </div>
                         <div class="forca_senha_barras">
                             <div class="forca_barra" id="barra1"></div>
@@ -60,8 +58,7 @@
                         <label for="cad_confirma">Confirmar senha</label>
                         <div class="campo_senha">
                             <input type="password" id="cad_confirma" placeholder="Repita a senha" required>
-                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_confirma', this)"><i
-                                    data-lucide="eye"></i></button>
+                            <button type="button" class="btn_ver_senha" onclick="alternarSenha('cad_confirma', this)"><i data-lucide="eye"></i></button>
                         </div>
                     </div>
 
@@ -154,9 +151,8 @@
     }
 
     function mostrarErro(msg) {
-        const el = document.getElementById('cad_erro');
-        el.textContent = msg;
-        el.classList.add('visivel');
+        msgErro.textContent = msg;
+        msgErro.classList.add('visivel');
     }
 
     function atualizarForca() {

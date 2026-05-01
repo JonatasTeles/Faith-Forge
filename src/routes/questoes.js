@@ -11,4 +11,8 @@ router.get("/explicacao/:idQuestao", function (req, res) {
     questaoController.buscarExplicacao(req, res);
 });
 
+router.post("/notaavaliacao", function (req, res) {
+    questaoController.cadastrarEstudo(req, res);
+})
+
 module.exports = router;

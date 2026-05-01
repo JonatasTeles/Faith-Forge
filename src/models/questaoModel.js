@@ -41,7 +41,18 @@ function buscarExplicacao(idQuestao) {
 
 }
 
+function cadastrarEstudo(idUsuario, idQuestao, nota) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", idUsuario, idQuestao, nota);
+
+    var instrucaoSql = `
+        INSERT INTO estudos (usuario_id, questao_id, nota_conviccao) VALUES ('${idUsuario}', '${idQuestao}', '${nota}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarInfoCards,
-    buscarExplicacao
+    buscarExplicacao,
+    cadastrarEstudo
 }

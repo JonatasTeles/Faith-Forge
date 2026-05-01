@@ -29,7 +29,7 @@
                 <div class="usuario_avatar" id="avatar_letra"></div>
                 <span class="usuario_nome" id="usuario_nome_header"></span>
             </div>
-            <a href="../index.html" class="btn_secundario">Sair</a>
+            <button class="btn_secundario" onclick="sairSessao()">Sair</button>
         </div>
     </header>
 
@@ -93,7 +93,7 @@
 <script>
 
     if (sessionStorage.ID_USUARIO == undefined) {
-        window.location = 'login.html';
+        window.location = '../login.html';
     }
 
     idUsuario = sessionStorage.ID_USUARIO;
@@ -401,5 +401,11 @@
             document.getElementById('grafico_barras'),
             config
         );
+    }
+
+    function sairSessao() {
+        sessionStorage.clear();
+
+        window.location = '../index.html'
     }
 </script>

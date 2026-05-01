@@ -24,6 +24,10 @@
     --cor-borda: #D1D5DB;
     --cor-borda-sutil: #E5E7EB;
 
+    --cor-acerto: #166534;
+    --cor-acerto-fundo: #dcfce7;
+    --cor-acerto-borda: #86efac;
+
     --cor-erro: #d4183d;
     --cor-erro-sutil: rgba(212, 24, 61, 0.1);
     --cor-erro-borda: rgba(212, 24, 61, 0.3);

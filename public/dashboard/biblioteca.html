@@ -34,23 +34,29 @@
 
     <div id="avaliacao" class="overlay">
         <div class="avaliacao">
-            <div class="explicacao_header">
+            <div class="avaliacao_header">
                 <div class="explicacao_topo">
-                    <h2>Nota de sua convicção</h2><br>
-                    <h2 id="avaliacao_titulo"></h2>
+                    <div class="avaliacao_cabecalho">
+                        <h2>Nota de sua convicção</h2>
+                        <h3 id="avaliacao_titulo"></h3>
+                    </div>
+                    <button class="btn_fechar" onclick="fecharAvaliacao()">✕</button>
                 </div>
             </div>
-            <div class="explicacao_corpo">
-                <button onclick="nota_avaliacao(1)">⭐</button>
-                <button onclick="nota_avaliacao(2)">⭐</button>
-                <button onclick="nota_avaliacao(3)">⭐</button>
-                <button onclick="nota_avaliacao(4)">⭐</button>
-                <button onclick="nota_avaliacao(5)">⭐</button>
-                <button onclick="nota_avaliacao(6)">⭐</button>
-                <button onclick="nota_avaliacao(7)">⭐</button>
-                <button onclick="nota_avaliacao(8)">⭐</button>
-                <button onclick="nota_avaliacao(9)">⭐</button>
-                <button onclick="nota_avaliacao(10)">⭐</button>
+            <div class="avaliacao_corpo">
+                <div>
+                    <button onclick="cadastrarEstudo(1)">⭐</button>
+                    <button onclick="cadastrarEstudo(2)">⭐</button>
+                    <button onclick="cadastrarEstudo(3)">⭐</button>
+                    <button onclick="cadastrarEstudo(4)">⭐</button>
+                    <button onclick="cadastrarEstudo(5)">⭐</button>
+                    <button onclick="cadastrarEstudo(6)">⭐</button>
+                    <button onclick="cadastrarEstudo(7)">⭐</button>
+                    <button onclick="cadastrarEstudo(8)">⭐</button>
+                    <button onclick="cadastrarEstudo(9)">⭐</button>
+                    <button onclick="cadastrarEstudo(10)">⭐</button>
+                </div>
+                <div id="feedback" class="feedback"></div>
             </div>
         </div>
     </div>
@@ -71,7 +77,7 @@
                 <div class="usuario_avatar" id="avatar_letra">U</div>
                 <span class="usuario_nome" id="usuario_nome_header">Usuário</span>
             </div>
-            <a href="../index.html" class="btn_secundario">Sair</a>
+            <button class="btn_secundario" onclick="sairSessao()">Sair</button>
         </div>
     </header>
 
@@ -87,36 +93,25 @@
         <div class="filtros_painel card_base">
             <div class="busca_container">
                 <span class="busca_icone">🔍</span>
-                <input type="text" id="busca_input" class="input_busca"
-                    placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
+                <input type="text" id="busca_input" class="input_busca" placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
             </div>
 
             <div class="filtros_botoes">
                 <span>Categoria:</span>
-                <button class="filtro_btn filtro_cat ativo" data-cat="All"
-                    onclick="selecionarCategoria(this)">Todos</button>
-                <button class="filtro_btn filtro_cat" data-cat="Filosofia"
-                    onclick="selecionarCategoria(this)">Filosofia</button>
-                <button class="filtro_btn filtro_cat" data-cat="História"
-                    onclick="selecionarCategoria(this)">História</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ciência"
-                    onclick="selecionarCategoria(this)">Ciência</button>
-                <button class="filtro_btn filtro_cat" data-cat="Escritura"
-                    onclick="selecionarCategoria(this)">Escritura</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ética"
-                    onclick="selecionarCategoria(this)">Ética</button>
+                <button class="filtro_btn filtro_cat ativo" data-cat="All" onclick="selecionarCategoria(this)">Todos</button>
+                <button class="filtro_btn filtro_cat" data-cat="Filosofia" onclick="selecionarCategoria(this)">Filosofia</button>
+                <button class="filtro_btn filtro_cat" data-cat="História" onclick="selecionarCategoria(this)">História</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ciência" onclick="selecionarCategoria(this)">Ciência</button>
+                <button class="filtro_btn filtro_cat" data-cat="Escritura" onclick="selecionarCategoria(this)">Escritura</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ética" onclick="selecionarCategoria(this)">Ética</button>
             </div>
 
             <div class="filtros_botoes">
                 <span>Dificuldade:</span>
-                <button class="filtro_btn filtro_dif ativo" data-dif="All"
-                    onclick="selecionarDificuldade(this)">Todas</button>
-                <button class="filtro_btn filtro_dif" data-dif="Fundação"
-                    onclick="selecionarDificuldade(this)">Fundação</button>
-                <button class="filtro_btn filtro_dif" data-dif="Intermediário"
-                    onclick="selecionarDificuldade(this)">Intermediário</button>
-                <button class="filtro_btn filtro_dif" data-dif="Avançado"
-                    onclick="selecionarDificuldade(this)">Avançado</button>
+                <button class="filtro_btn filtro_dif ativo" data-dif="All" onclick="selecionarDificuldade(this)">Todas</button>
+                <button class="filtro_btn filtro_dif" data-dif="Fundação" onclick="selecionarDificuldade(this)">Fundação</button>
+                <button class="filtro_btn filtro_dif" data-dif="Intermediário" onclick="selecionarDificuldade(this)">Intermediário</button>
+                <button class="filtro_btn filtro_dif" data-dif="Avançado" onclick="selecionarDificuldade(this)">Avançado</button>
             </div>
         </div>
 
@@ -142,7 +137,7 @@
 <script>
 
     if (sessionStorage.ID_USUARIO == undefined) {
-        window.location = 'login.html';
+        window.location = '../login.html';
     }
 
     idUsuario = sessionStorage.ID_USUARIO;
@@ -209,7 +204,7 @@
                                     <h3>${resposta[i].titulo}</h3>
                                     <p>${resposta[i].resumo}</p>
                                     <div class="questao_rodape">
-                                        <div class="questao_tags">${tags_juntas}</div>
+                                        <div class="questao_tags"><span class="questao_tag">${tags_juntas}</span></div>
                                         <span class="questao_seta">→</span>
                                     </div>
                                 </div>
@@ -269,6 +264,7 @@
                         explicacao_resumo.innerHTML = resposta[0].resumo;
                         explicacao_resposta.innerHTML = resposta[0].resposta;
                         explicacao_escritura.innerHTML = resposta[0].escritura;
+                        questao_atual_id = resposta[0].id
                         questao_atual_titulo = resposta[0].titulo;
 
                         document.getElementById('overlay_explicacao').classList.add('visivel');
@@ -281,16 +277,60 @@
             })
     }
 
-    function nota_avaliacao(nota) {
-        
+    function cadastrarEstudo(nota) {
+        feedback.innerHTML = ``;
+        const msgFeedback = document.getElementById('feedback');
+
+        msgFeedback.classList.remove('visivel');
+
+        fetch("/questoes/notaavaliacao/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuario,
+                idQuestaoServer: questao_atual_id,
+                notaServer: nota
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Avaliação salva com sucesso!");
+
+                    msgFeedback.innerHTML = `Avaliação salva com sucesso!`;
+                    msgFeedback.classList.add('visivel');
+
+                    setTimeout(() => {
+                        document.getElementById('avaliacao').classList.remove('visivel');
+                    }, "2000");
+                } else {
+                    throw "Houve um erro ao realizar a avaliação!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
-    function fecharExplicacao(resposta) {
+    function fecharExplicacao() {
 
         avaliacao_titulo.innerHTML = questao_atual_titulo;
 
         document.getElementById('avaliacao').classList.add('visivel');
 
         document.getElementById('overlay_explicacao').classList.remove('visivel');
+    }
+
+    function fecharAvaliacao() {
+        document.getElementById('avaliacao').classList.remove('visivel');
+    }
+
+    function sairSessao() {
+        sessionStorage.clear();
+
+        window.location = '../index.html'
     }
 </script>
