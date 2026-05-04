@@ -464,7 +464,7 @@
     background-color: var(--cor-fundo-claro);
     border-radius: var(--radius-xl);
     width: min(680px, 95vw);
-    max-height: 30vh;
+    max-height: 40vh;
     overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
@@ -543,6 +543,17 @@
 
 .btn_fechar:hover {
     color: var(--cor-texto-claro);
+}
+
+.div_btn_avaliar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.div_btn_avaliar button {
+    width: 100%;
 }
 
 .explicacao_header h2 {
