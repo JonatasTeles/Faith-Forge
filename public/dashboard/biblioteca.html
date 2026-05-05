@@ -96,36 +96,25 @@
         <div class="filtros_painel card_base">
             <div class="busca_container">
                 <span class="busca_icone">🔍</span>
-                <input type="text" id="busca_input" class="input_busca"
-                    placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
+                <input type="text" id="busca_input" class="input_busca" placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
             </div>
 
             <div class="filtros_botoes">
                 <span>Categoria:</span>
-                <button class="filtro_btn filtro_cat ativo" data-cat="All"
-                    onclick="selecionarCategoria(this)">Todos</button>
-                <button class="filtro_btn filtro_cat" data-cat="Filosofia"
-                    onclick="selecionarCategoria(this)">Filosofia</button>
-                <button class="filtro_btn filtro_cat" data-cat="História"
-                    onclick="selecionarCategoria(this)">História</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ciência"
-                    onclick="selecionarCategoria(this)">Ciência</button>
-                <button class="filtro_btn filtro_cat" data-cat="Escritura"
-                    onclick="selecionarCategoria(this)">Escritura</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ética"
-                    onclick="selecionarCategoria(this)">Ética</button>
+                <button class="filtro_btn filtro_cat ativo" data-cat="All" onclick="selecionarCategoria(this)">Todos</button>
+                <button class="filtro_btn filtro_cat" data-cat="Filosofia" onclick="selecionarCategoria(this)">Filosofia</button>
+                <button class="filtro_btn filtro_cat" data-cat="História" onclick="selecionarCategoria(this)">História</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ciência" onclick="selecionarCategoria(this)">Ciência</button>
+                <button class="filtro_btn filtro_cat" data-cat="Escritura" onclick="selecionarCategoria(this)">Escritura</button>
+                <button class="filtro_btn filtro_cat" data-cat="Ética" onclick="selecionarCategoria(this)">Ética</button>
             </div>
 
             <div class="filtros_botoes">
                 <span>Dificuldade:</span>
-                <button class="filtro_btn filtro_dif ativo" data-dif="All"
-                    onclick="selecionarDificuldade(this)">Todas</button>
-                <button class="filtro_btn filtro_dif" data-dif="Fundação"
-                    onclick="selecionarDificuldade(this)">Fundação</button>
-                <button class="filtro_btn filtro_dif" data-dif="Intermediário"
-                    onclick="selecionarDificuldade(this)">Intermediário</button>
-                <button class="filtro_btn filtro_dif" data-dif="Avançado"
-                    onclick="selecionarDificuldade(this)">Avançado</button>
+                <button class="filtro_btn filtro_dif ativo" data-dif="All" onclick="selecionarDificuldade(this)">Todas</button>
+                <button class="filtro_btn filtro_dif" data-dif="Fundação" onclick="selecionarDificuldade(this)">Fundação</button>
+                <button class="filtro_btn filtro_dif" data-dif="Intermediário" onclick="selecionarDificuldade(this)">Intermediário</button>
+                <button class="filtro_btn filtro_dif" data-dif="Avançado" onclick="selecionarDificuldade(this)">Avançado</button>
             </div>
         </div>
 
@@ -162,6 +151,7 @@
     let questao_atual_id;
 
     window.onload = plotarCards();
+    window.onload = obterContagemStreak(idUsuario);
 
     function plotarCards() {
         fetch(`/questoes/cards`, { cache: 'no-store' })
@@ -223,6 +213,53 @@
                                     </div>
                                 </div>
                             `;
+                        }
+                    })
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ Cards: ${error.message}`);
+            })
+    }
+
+    function obterContagemStreak(idUsuario) {
+        fetch(`/questoes/contstreak/${idUsuario}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos contagem streak: ${JSON.stringify(resposta)}`);
+
+                        if (resposta[0].dif_dias > 0) {
+
+                            fetch("/questoes/cadstreak/", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    idUsuarioServer: idUsuario
+                                }),
+                            })
+                                .then(function (resposta) {
+                                    console.log("resposta: ", resposta);
+
+                                    if (resposta.ok) {
+
+                                        msgFeedback.innerHTML = `Avaliação salva com sucesso!`;
+                                        msgFeedback.classList.add('visivel');
+
+                                        setTimeout(() => {
+                                            document.getElementById('avaliacao').classList.remove('visivel');
+                                        }, "2000");
+                                    } else {
+                                        throw "Houve um erro ao realizar a avaliação!";
+                                    }
+                                })
+                                .catch(function (resposta) {
+                                    console.log(`#ERRO: ${resposta}`);
+                                });
+
                         }
                     })
                 } else {
