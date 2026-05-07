@@ -41,11 +41,12 @@ function buscarContagemStreak(req, res) {
 function cadastrarStreak(req, res) {
 
     var idUsuario = req.body.idUsuarioServer;
+    var numStreak = req.body.numStreakServer;
 
     if (idUsuario == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else {
-        questaoModel.cadastrarStreak(idUsuario)
+        questaoModel.cadastrarStreak(idUsuario, numStreak)
             .then(function (resultado) {
                 res.json(resultado);
             }
@@ -53,6 +54,27 @@ function cadastrarStreak(req, res) {
                 console.log(erro);
                 console.log(
                     "\nHouve um erro ao realizar o cadastro da streak! Erro:",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
+function zerarStreak(req, res) {
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else {
+        questaoModel.zerarStreak(idUsuario)
+            .then(function (resultado) {
+                res.json(resultado);
+            }
+            ).catch(function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o zeramento da streak! Erro:",
                     erro.sqlMessage
                 );
                 res.status(500).json(erro.sqlMessage);
@@ -111,6 +133,7 @@ module.exports = {
     buscarInfoCards,
     buscarContagemStreak,
     cadastrarStreak,
+    zerarStreak,
     buscarExplicacao,
     cadastrarEstudo
 }

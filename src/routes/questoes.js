@@ -15,6 +15,10 @@ router.post("/cadstreak/", function (req, res) {
     questaoController.cadastrarStreak(req, res);
 });
 
+router.post("/zerarstreak/", function (req, res) {
+    questaoController.zerarStreak(req, res);
+});
+
 router.get("/explicacao/:idQuestao", function (req, res) {
     questaoController.buscarExplicacao(req, res);
 });

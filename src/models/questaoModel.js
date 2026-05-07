@@ -25,8 +25,10 @@ function buscarContagemStreak(idUsuario) {
 
     var instrucaoSQL = `
         SELECT
-            TIMESTAMPDIFF(DAY, data_estudo, CURRENT_TIMESTAMP()) as dif_dias
-        FROM estudos
+            TIMESTAMPDIFF(DAY, e.data_estudo, CURRENT_TIMESTAMP()) as dif_dias,
+            u.streak
+        FROM estudos e 
+        JOIN usuarios u ON e.usuario_id = u.id
         WHERE usuario_id = ${idUsuario}
         ORDER BY data_estudo DESC
         LIMIT 1;
@@ -36,11 +38,21 @@ function buscarContagemStreak(idUsuario) {
     return database.executar(instrucaoSQL);
 }
 
-function cadastrarStreak(idUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", idUsuario, idQuestao, nota);
+function cadastrarStreak(idUsuario, numStreak) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarStreak():", idUsuario, numStreak);
 
     var instrucaoSql = `
-        UPDATE usuarios SET streak = ;
+        UPDATE usuarios SET streak = ${numStreak + 1} WHERE id = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function zerarStreak(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function zerarStreak():", idUsuario);
+
+    var instrucaoSql = `
+        UPDATE usuarios SET streak = 0 WHERE id = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -79,6 +91,8 @@ function cadastrarEstudo(idUsuario, idQuestao, nota) {
 module.exports = {
     buscarInfoCards,
     buscarContagemStreak,
+    cadastrarStreak,
+    zerarStreak,
     buscarExplicacao,
     cadastrarEstudo
 }
