@@ -246,7 +246,17 @@
 
                         if (resposta[0].dif_dias > 0) {
 
-                            streak_obitida = resposta[0].streak
+                            // colocar um if para NaN aqui
+
+                            if (resposta[0].streak == undefined) {
+
+                                streak_obitida = 0;
+
+                            } else {
+
+                                streak_obitida = resposta[0].streak
+
+                            }
 
                         } else {
 

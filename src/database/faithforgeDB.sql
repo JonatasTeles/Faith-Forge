@@ -38,7 +38,7 @@ create table questoes_tags (
 create table estudos (
 	id int primary key auto_increment,
     nota_conviccao decimal(3,1),
-    data_estudo timestamp default current_timestamp,
+    data_estudo date default (current_date),
     usuario_id int,
     questao_id int,
     constraint fk_estudos_usuarios foreign key (usuario_id) references usuarios (id) on delete cascade,
@@ -91,13 +91,28 @@ insert into questoes_tags (questao_id, tag_id) values
 (12, 31), (12, 32), (12, 33);
 
 insert into estudos (usuario_id, questao_id, nota_conviccao, data_estudo) values
-(1, 1, 4.0, '2026-01-20 14:30:00'),
-(1, 1, 6.5, '2026-02-15 10:15:00'),
-(1, 1, 9.5, '2026-04-18 20:00:00'),
-(1, 4, 7.0, '2026-02-10 09:00:00'),
-(1, 4, 10.0, '2026-03-05 16:45:00'),
-(1, 5, 3.5, '2026-01-25 21:00:00'),
-(1, 5, 8.0, '2026-04-20 19:30:00'),
-(1, 2, 9.0, '2026-03-12 08:20:00'),
-(1, 8, 6.0, '2026-04-10 11:10:00'),
-(1, 9, 8.5, '2026-04-19 22:05:00');
+(1, 1, 4.0, '2026-01-20'),
+(1, 1, 6.5, '2026-02-15'),
+(1, 1, 9.5, '2026-04-18'),
+(1, 4, 7.0, '2026-02-10'),
+(1, 4, 10.0, '2026-03-05'),
+(1, 5, 3.5, '2026-01-25'),
+(1, 5, 8.0, '2026-04-20'),
+(1, 2, 9.0, '2026-03-12'),
+(1, 8, 6.0, '2026-04-10'),
+(1, 8, 7.0, '2026-05-07');
+
+select *from usuarios;
+
+select *from estudos where usuario_id = 1;
+
+delete from estudos where usuario_id = 2;
+
+SELECT
+            TIMESTAMPDIFF(DAY, e.data_estudo, CURRENT_TIMESTAMP()) as dif_dias,
+            u.streak
+        FROM estudos e 
+        JOIN usuarios u ON e.usuario_id = u.id
+        WHERE usuario_id = 1
+        ORDER BY data_estudo DESC
+        LIMIT 1;
