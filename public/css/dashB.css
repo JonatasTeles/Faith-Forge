@@ -4,6 +4,10 @@
     gap: var(--espaco-sm);
 }
 
+.clicavel {
+    cursor: pointer;
+}
+
 .usuario_info {
     display: flex;
     align-items: center;
