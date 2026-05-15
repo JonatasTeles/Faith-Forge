@@ -84,14 +84,14 @@ function buscarAtividadeRecente(idUsuario) {
 
     var instrucaoSql = `
         SELECT
-	        q.categoria,
+            q.categoria,
             q.titulo,
             e.nota_conviccao,
             DATE_FORMAT(e.data_estudo, '%d %b') as data_estudo
         FROM estudos e
         JOIN questoes q ON q.id = e.questao_id
         WHERE e.usuario_id = ${idUsuario}
-        ORDER BY data_estudo DESC
+        ORDER BY MONTH(data_estudo) DESC, DAY(data_estudo) DESC
         LIMIT 8;
     `;
 

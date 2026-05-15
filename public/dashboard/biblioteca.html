@@ -71,7 +71,7 @@
         </a>
         <nav>
             <ul class="menu">
-                <li class="clicavel" onclick="irParaDash()"><a>Dashboard</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="biblioteca.html" class="ativo">Biblioteca</a></li>
             </ul>
         </nav>
@@ -94,38 +94,23 @@
     <div class="biblioteca_conteudo">
 
         <div class="filtros_painel card_base">
-            <div class="busca_container">
-                <span class="busca_icone">🔍</span>
-                <input type="text" id="busca_input" class="input_busca"
-                    placeholder="Buscar por título, resumo ou tag..." oninput="filtrar()">
-            </div>
 
             <div class="filtros_botoes">
                 <span>Categoria:</span>
-                <button class="filtro_btn filtro_cat ativo" data-cat="All"
-                    onclick="selecionarCategoria(this)">Todos</button>
-                <button class="filtro_btn filtro_cat" data-cat="Filosofia"
-                    onclick="selecionarCategoria(this)">Filosofia</button>
-                <button class="filtro_btn filtro_cat" data-cat="História"
-                    onclick="selecionarCategoria(this)">História</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ciência"
-                    onclick="selecionarCategoria(this)">Ciência</button>
-                <button class="filtro_btn filtro_cat" data-cat="Escritura"
-                    onclick="selecionarCategoria(this)">Escritura</button>
-                <button class="filtro_btn filtro_cat" data-cat="Ética"
-                    onclick="selecionarCategoria(this)">Ética</button>
+                <button id="todosCat" class="filtro_btn filtro_cat ativo" onclick="selecionarCategoria('todosCat')">Todos</button>
+                <button id="Filosofia" class="filtro_btn filtro_cat" onclick="selecionarCategoria('Filosofia')">Filosofia</button>
+                <button id="História" class="filtro_btn filtro_cat" onclick="selecionarCategoria('História')">História</button>
+                <button id="Ciência" class="filtro_btn filtro_cat" onclick="selecionarCategoria('Ciência')">Ciência</button>
+                <button id="Escritura" class="filtro_btn filtro_cat" onclick="selecionarCategoria('Escritura')">Escritura</button>
+                <button id="Ética" class="filtro_btn filtro_cat" onclick="selecionarCategoria('Ética')">Ética</button>
             </div>
 
             <div class="filtros_botoes">
                 <span>Dificuldade:</span>
-                <button class="filtro_btn filtro_dif ativo" data-dif="All"
-                    onclick="selecionarDificuldade(this)">Todas</button>
-                <button class="filtro_btn filtro_dif" data-dif="Fundação"
-                    onclick="selecionarDificuldade(this)">Fundação</button>
-                <button class="filtro_btn filtro_dif" data-dif="Intermediário"
-                    onclick="selecionarDificuldade(this)">Intermediário</button>
-                <button class="filtro_btn filtro_dif" data-dif="Avançado"
-                    onclick="selecionarDificuldade(this)">Avançado</button>
+                <button id="todosDif" class="filtro_btn filtro_dif ativo" onclick="selecionarDificuldade('todosDif')">Todos</button>
+                <button id="Fundação" class="filtro_btn filtro_dif" onclick="selecionarDificuldade('Fundação')">Fundação</button>
+                <button id="Intermediário" class="filtro_btn filtro_dif" onclick="selecionarDificuldade('Intermediário')">Intermediário</button>
+                <button id="Avançado" class="filtro_btn filtro_dif" onclick="selecionarDificuldade('Avançado')">Avançado</button>
             </div>
         </div>
 
@@ -134,7 +119,7 @@
         <div id="sem_resultados" class="sem_resultados">
             <p style="font-size: 2rem; margin-bottom: 0.75rem;">🔍</p>
             <p style="font-size: 1.1rem; color: var(--cor-texto-suave);">Nenhuma questão encontrada.</p>
-            <p style="margin-top: 0.5rem;">Tente outro termo ou categoria.</p>
+            <p style="margin-top: 0.5rem;">Tente outra dificuldade ou categoria.</p>
         </div>
 
     </div>
@@ -162,78 +147,106 @@
     let questao_atual_id;
     let streak_obitida;
     let deve_aumentar_streak = true;
-    let pode_ir_pra_dash = true;
+    let cat_selecionada = 'todosCat';
+    let dif_selecionada = 'todosDif';
+    const div_sem_resul = document.getElementById('sem_resultados');
 
-    window.onload = plotarCards();
+    window.onload = plotarCards(cat_selecionada, dif_selecionada);
     window.onload = obterContagemStreak(idUsuario);
     window.onload = obterParaZerarStreak(idUsuario);
 
-    function irParaDash() {
-        if (pode_ir_pra_dash) {
-            window.location = "dashboard.html";
-        }
+    function selecionarCategoria(categoria) {
+        document.getElementById('todosCat').classList.remove('ativo');
+        document.getElementById('Filosofia').classList.remove('ativo');
+        document.getElementById('História').classList.remove('ativo');
+        document.getElementById('Ciência').classList.remove('ativo');
+        document.getElementById('Escritura').classList.remove('ativo');
+        document.getElementById('Ética').classList.remove('ativo');
+        console.log(categoria);
+        div_sem_resul.classList.remove('visivel');
+        document.getElementById(categoria).classList.add('ativo');
+
+        cat_selecionada = categoria;
+
+        plotarCards(cat_selecionada, dif_selecionada);
     }
 
-    function plotarCards() {
-        fetch(`/questoes/cards`, { cache: 'no-store' })
+    function selecionarDificuldade(dificuldade) {
+        document.getElementById('todosDif').classList.remove('ativo');
+        document.getElementById('Fundação').classList.remove('ativo');
+        document.getElementById('Intermediário').classList.remove('ativo');
+        document.getElementById('Avançado').classList.remove('ativo');
+        console.log(dificuldade);
+        document.getElementById(dificuldade).classList.add('ativo');
+
+        dif_selecionada = dificuldade;
+
+        plotarCards(cat_selecionada, dif_selecionada);
+
+    }
+
+    function plotarCards(categoria, dificuldade) {
+        questoes_grid.innerHTML = '';
+
+        fetch(`/questoes/cards/${categoria}/${dificuldade}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(`Dados recebidos Cards: ${JSON.stringify(resposta)}\n ${'='.repeat(90)}`);
+                        console.log(`Dados recebidos Cards: ${JSON.stringify(resposta)}\n`);
 
-                        for (let i = 0; i < resposta.length; i++) {
+                        if (resposta == 0) {
+                            div_sem_resul.classList.add('visivel');
+                        } else {
+                            for (let i = 0; i < resposta.length; i++) {
 
-                            let cor_fundo = ``;
-                            let cor_texto = ``;
-                            let cor_dif = ``;
-                            let tags_juntas = ``;
+                                let cor_fundo = ``;
+                                let cor_texto = ``;
+                                let cor_dif = ``;
 
-                            if (resposta[i].categoria === 'Filosofia') {
-                                cor_fundo = `rgba(58,80,107,0.12)`;
-                                cor_texto = `#3A506B`;
-                            } else if (resposta[i].categoria === 'História') {
-                                cor_fundo = `rgba(255,140,0,0.1)`;
-                                cor_texto = `#CC7000`;
-                            } else if (resposta[i].categoria === 'Ciência') {
-                                cor_fundo = `rgba(34,197,94,0.1)`;
-                                cor_texto = `#16a34a`;
-                            } else if (resposta[i].categoria === 'Escritura') {
-                                cor_fundo = `rgba(168,85,247,0.1)`;
-                                cor_texto = `#7c3aed`;
-                            } else if (resposta[i].categoria === 'Ética') {
-                                cor_fundo = `rgba(239,68,68,0.1)`;
-                                cor_texto = `#dc2626`;
-                            }
+                                if (resposta[i].categoria === 'Filosofia') {
+                                    cor_fundo = `rgba(58,80,107,0.12)`;
+                                    cor_texto = `#3A506B`;
+                                } else if (resposta[i].categoria === 'História') {
+                                    cor_fundo = `rgba(255,140,0,0.1)`;
+                                    cor_texto = `#CC7000`;
+                                } else if (resposta[i].categoria === 'Ciência') {
+                                    cor_fundo = `rgba(34,197,94,0.1)`;
+                                    cor_texto = `#16a34a`;
+                                } else if (resposta[i].categoria === 'Escritura') {
+                                    cor_fundo = `rgba(168,85,247,0.1)`;
+                                    cor_texto = `#7c3aed`;
+                                } else if (resposta[i].categoria === 'Ética') {
+                                    cor_fundo = `rgba(239,68,68,0.1)`;
+                                    cor_texto = `#dc2626`;
+                                }
 
-                            if (resposta[i].dificuldade === 'Avançado') {
-                                cor_dif = `#d4183d`;
-                            } else if (resposta[i].dificuldade === 'Intermediário') {
-                                cor_dif = `#FF8C00`;
-                            } else if (resposta[i].dificuldade === 'Fundação') {
-                                cor_dif = `#22c55e`;
-                            }
+                                if (resposta[i].dificuldade === 'Avançado') {
+                                    cor_dif = `#d4183d`;
+                                } else if (resposta[i].dificuldade === 'Intermediário') {
+                                    cor_dif = `#FF8C00`;
+                                } else if (resposta[i].dificuldade === 'Fundação') {
+                                    cor_dif = `#22c55e`;
+                                }
 
-                            tags_juntas = `${resposta[i].tags[0]} - ${resposta[i].tags[1]} - ${resposta[i].tags[2]}`;
-
-                            questoes_grid.innerHTML += `
-                                <div class="questao_card" onclick="abrirExplicacao(${resposta[i].id})">
-                                    <div class="questao_topo">
-                                        <span class="questao_categoria"
-                                            style="background-color: ${cor_fundo}; color: ${cor_texto}">
-                                            ${resposta[i].categoria}
-                                        </span>
-                                        <span class="questao_dificuldade" style="background-color:${cor_dif}">
-                                            ${resposta[i].dificuldade}
-                                        </span>
+                                questoes_grid.innerHTML += `
+                                    <div class="questao_card" onclick="abrirExplicacao(${resposta[i].id})">
+                                        <div class="questao_topo">
+                                            <span class="questao_categoria"
+                                                style="background-color: ${cor_fundo}; color: ${cor_texto}">
+                                                ${resposta[i].categoria}
+                                            </span>
+                                            <span class="questao_dificuldade" style="background-color:${cor_dif}">
+                                                ${resposta[i].dificuldade}
+                                            </span>
+                                        </div>
+                                        <h3>${resposta[i].titulo}</h3>
+                                        <p>${resposta[i].resumo}</p>
+                                        <div class="questao_rodape">
+                                            <span class="questao_seta">→</span>
+                                        </div>
                                     </div>
-                                    <h3>${resposta[i].titulo}</h3>
-                                    <p>${resposta[i].resumo}</p>
-                                    <div class="questao_rodape">
-                                        <div class="questao_tags"><span class="questao_tag">${tags_juntas}</span></div>
-                                        <span class="questao_seta">→</span>
-                                    </div>
-                                </div>
                             `;
+                            }
                         }
                     })
                 } else {
@@ -254,8 +267,6 @@
                         if (resposta.length == 0) {
 
                             console.log('Usuario novo, vai aumentar streak');
-
-                            pode_ir_pra_dash = false;
 
                             streak_obitida = 0;
 
@@ -456,8 +467,6 @@
                     if (deve_aumentar_streak) {
                         aumentarStreak(streak_obitida);
                     }
-
-                    pode_ir_pra_dash = true;
 
                     setTimeout(() => {
                         document.getElementById('avaliacao').classList.remove('visivel');

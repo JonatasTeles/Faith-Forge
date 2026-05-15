@@ -1,20 +1,55 @@
 var database = require("../database/config");
 
-function buscarInfoCards() {
+function buscarInfoCards(categoria, dificuldade) {
 
-    var instrucaoSQL = `
-        SELECT
-            q.id,
-            q.titulo,
-            q.categoria,
-            q.dificuldade,
-            q.resumo,
-            JSON_ARRAYAGG(t.nome) AS tags
-        FROM questoes q
-        JOIN questoes_tags qt ON q.id = qt.questao_id
-        JOIN tags t ON qt.tag_id = t.id
-        GROUP BY q.id;
-    `;
+    if (categoria == 'todosCat' && dificuldade == 'todosDif') {
+
+        var instrucaoSQL = `
+            SELECT
+                id,
+                titulo,
+                categoria,
+                dificuldade,
+                resumo
+            FROM questoes;
+        `;
+    } else if (categoria == 'todosCat') {
+
+        var instrucaoSQL = `
+            SELECT
+                id,
+                titulo,
+                categoria,
+                dificuldade,
+                resumo
+            FROM questoes
+            WHERE dificuldade = '${dificuldade}';
+        `;
+    } else if (dificuldade == 'todosDif') {
+
+        var instrucaoSQL = `
+            SELECT
+                id,
+                titulo,
+                categoria,
+                dificuldade,
+                resumo
+            FROM questoes
+            WHERE categoria = '${categoria}';
+        `;
+    } else {
+
+        var instrucaoSQL = `
+            SELECT
+                id,
+                titulo,
+                categoria,
+                dificuldade,
+                resumo
+            FROM questoes
+            WHERE categoria = '${categoria}' AND dificuldade = '${dificuldade}';
+        `;
+    }
 
     console.log("Executando a instrução SQL: \n" + instrucaoSQL);
     return database.executar(instrucaoSQL);

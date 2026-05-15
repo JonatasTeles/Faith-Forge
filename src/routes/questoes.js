@@ -3,7 +3,7 @@ var router = express.Router();
 
 var questaoController = require("../controllers/questaoController");
 
-router.get("/cards", function (req, res) {
+router.get("/cards/:categoria/:dificuldade", function (req, res) {
     questaoController.buscarInfoCards(req, res);
 });
 
