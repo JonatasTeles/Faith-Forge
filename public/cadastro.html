@@ -189,4 +189,14 @@
     function sumirMensagem() {
         msgErro.classList.remove('visivel');
     }
+
+    const campos = [document.getElementById('cad_nome'), document.getElementById('cad_email'), document.getElementById('cad_senha'), document.getElementById('cad_confirma')];
+
+    campos.forEach(campo => {
+        campo.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                cadastrar();
+            }
+        })
+    })
 </script>

@@ -2,7 +2,6 @@
     display: flex;
     gap: 0.75rem;
     align-items: center;
-    flex-shrink: 0;
 }
 
 section {
@@ -60,14 +59,12 @@ section {
 .hero_botoes {
     display: flex;
     gap: 0.875rem;
-    flex-wrap: wrap;
     margin-bottom: 2.5rem;
 }
 
 .hero_stats {
     display: flex;
     gap: 2rem;
-    flex-wrap: wrap;
 }
 
 .hero_stat_valor {
@@ -125,7 +122,6 @@ section {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    flex-wrap: wrap;
 }
 
 .step {

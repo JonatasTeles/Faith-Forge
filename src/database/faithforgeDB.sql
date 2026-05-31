@@ -117,7 +117,7 @@ A tradição cristã sempre valorizou o diálogo entre fé e razão. Agostinho d
 A fé cristã não pede que o crente silencie sua mente, mas que a use com honestidade intelectual, reconhecendo os limites do conhecimento humano e permanecendo aberto às evidências que apontam para além do puramente material.
  
 Aplicação: Examinar as razões para crer é um ato de amor a Deus "com toda a tua mente" (Mateus 22:37). A busca honesta pela verdade nunca é inimiga da fé genuína.'
-WHERE titulo = 'A fé se opõe à razão?';
+WHERE id = 9;
  
 UPDATE questoes
 SET resposta = 'O argumento ontológico é uma tentativa de demonstrar a existência de Deus por meio da lógica pura, sem recorrer à observação do mundo físico. Foi formulado no século XI pelo filósofo e teólogo Anselmo de Cantuária e desenvolvido, em versão moderna, pelo filósofo Alvin Plantinga.
@@ -129,7 +129,7 @@ Plantinga reformulou o argumento em termos de "mundos possíveis": se um ser max
 O argumento não convence a todos, mas sua força está em revelar que o próprio conceito de Deus é único: ao contrário de outras coisas, Deus é o único ser cuja essência implica a existência. Existir não lhe é acidental é constitutivo do que Ele é.
  
 Aplicação: Refletir sobre a grandeza infinita de Deus não é apenas exercício filosófico; é um convite à adoração de um ser que, por natureza, nunca poderia não existir.'
-WHERE titulo = 'O Argumento Ontológico';
+WHERE id = 12;
  
 UPDATE questoes
 SET resposta = 'Por que existe algo em vez de nada? Essa pergunta, simples na forma mas profunda no alcance, está no centro do argumento cosmológico para a existência de Deus.
@@ -141,7 +141,7 @@ O filósofo árabe Al-Kindi e, mais tarde, Tomás de Aquino desenvolveram versõ
 Objeta-se que essa causa poderia ser eterna sem ser pessoal. Porém, para que um universo temporal surja de uma causa eterna, é preciso uma decisão algo que implica agência e, portanto, personalidade.
  
 Aplicação: O universo proclama, pela sua própria existência, que há um Criador. Contemplar o cosmos com gratidão é reconhecer que fomos colocados aqui por uma Causa que também é Presença.'
-WHERE titulo = 'Deus existe? O Argumento Cosmológico';
+WHERE id = 5;
  
 UPDATE questoes
 SET resposta = 'Imagine ajustar os parâmetros de uma balança com uma precisão tão extrema que qualquer variação de uma parte em um trilhão destruiria o resultado. É isso que os físicos encontraram ao estudar as constantes fundamentais do universo.
@@ -153,7 +153,7 @@ Esse conjunto de evidências é chamado de "ajuste fino" (fine-tuning) e constit
 A alternativa materialista o "multiverso", a ideia de que existem infinitos universos com parâmetros aleatórios é especulativa e não testável. A navalha de Occam sugere que a hipótese mais simples é a de um Criador que agiu com propósito.
  
 Aplicação: Cada detalhe do cosmos reflete cuidado intencional. O Deus que calibrou as constantes do universo é o mesmo que conhece o número de cabelos em nossa cabeça (Lucas 12:7).'
-WHERE titulo = 'O ajuste fino do universo';
+WHERE id = 8;
  
 UPDATE questoes
 SET resposta = 'Toda cultura humana, em qualquer época ou lugar, reconhece distinções morais básicas: crueldade gratuita é errada, sacrifício pelo outro é louvável, trair a confiança de um inocente é uma injustiça. O argumento moral pergunta: de onde vem essa percepção universal?
@@ -165,7 +165,7 @@ Toda vez que argumentamos sobre o certo e o errado, apelamos para uma lei superi
 O ateísmo pode explicar por que sentimos que algo é errado (biologia evolutiva, coesão social), mas não pode explicar por que de fato é errado. Sem um padrão objetivo transcendente, a moralidade se reduz a opinião coletiva e toda atrocidade histórica pode ser relativizada.
  
 Aplicação: A indignação moral diante de uma injustiça é, no fundo, um eco da imagem de Deus em nós (Gênesis 1:27). Ouvir essa voz com atenção é um passo em direção ao próprio Deus.'
-WHERE titulo = 'O Argumento Moral a Favor de Deus';
+WHERE id = 6;
  
 UPDATE questoes
 SET resposta = '"Se Deus existe e é bom, por que há tanto sofrimento?" Essa é, provavelmente, a objeção mais emocional e mais séria dirigida ao teísmo cristão. Ignorá-la seria desonestidade intelectual.
@@ -175,7 +175,7 @@ O filósofo Alvin Plantinga oferece a resposta mais desenvolvida com a "Defesa d
 O mal natural terremotos, doenças, morte também exige resposta. A visão cristã entende que vivemos num mundo afetado pela ruptura original com Deus (Gênesis 3), e que o sofrimento, embora real e doloroso, pode ser redimido. A Bíblia não ignora a dor: o livro de Jó é inteiramente dedicado a ela. E a resposta última de Deus não é uma explicação filosófica, mas uma presença: a encarnação e a cruz de Jesus mostram um Deus que entra no sofrimento humano.
  
 Aplicação: A pergunta "por que Deus permite isso?" é legítima e merece ser feita a Ele diretamente, como Jó fez. Deus não tem medo das nossas perguntas e sua resposta é muitas vezes uma presença, não um argumento.'
-WHERE titulo = 'O Problema do Mal';
+WHERE id = 1;
  
 UPDATE questoes
 SET resposta = 'Por que existe experiência subjetiva? Por que há "algo que é ser" um ser humano um interior, uma perspectiva em primeira pessoa, o vermelho que você vê, a dor que você sente? Esse fenômeno, chamado de "consciência" ou "qualia", é um dos maiores enigmas da filosofia da mente.
@@ -187,7 +187,7 @@ A visão cristã oferece uma resposta coerente: os seres humanos são feitos à 
 Além disso, a Bíblia fala de uma consciência moral (Romanos 2:15) que atua como voz interior capaz de acusar ou justificar. Essa capacidade de autojulgamento moral aponta para uma origem que transcende a biologia.
  
 Aplicação: A vida interior pensamentos, emoções, consciência não é ruído aleatório. É o espaço onde Deus nos convida ao encontro pessoal com Ele.'
-WHERE titulo = 'O Argumento da Consciência';
+WHERE id = 10;
  
 UPDATE questoes
 SET resposta = 'A ciência é uma das maiores conquistas da humanidade, capaz de descrever o funcionamento do universo com precisão extraordinária. Mas ela pode provar ou refutar a existência de Deus? A resposta honesta é: não.
@@ -199,7 +199,7 @@ Alguns argumentam que cada fenômeno antes atribuído a Deus agora tem explicaç
 Muitos dos maiores cientistas da história Newton, Mendel, Faraday, Francis Collins eram crentes convictos, justamente porque a investigação científica os conduzia à admiração diante de uma ordem que parecia intencional.
  
 Aplicação: A ciência e a fé não são inimigas são parceiras na busca pela verdade. O universo que a ciência descreve é o mesmo que a fé proclama ser uma criação.'
-WHERE titulo = 'A ciência pode refutar a existência de Deus?';
+WHERE id = 3;
  
 UPDATE questoes
 SET resposta = 'A ressurreição de Jesus é o coração do cristianismo. O apóstolo Paulo foi direto: "se Cristo não ressuscitou, vã é a nossa fé" (1 Coríntios 15:14). Mas há razões históricas sólidas para levar esse evento a sério?
@@ -211,7 +211,7 @@ O historiador Gary Habermas cataloga centenas de estudiosos contemporâneos que 
 A melhor explicação para o conjunto dos fatos continua sendo a que os primeiros cristãos apresentaram: Jesus ressuscitou. Esse evento não é apenas um milagre isolado é a validação da identidade de Jesus e a garantia de que a morte não tem a última palavra.
  
 Aplicação: A ressurreição não é apenas um artigo de fé do passado é a promessa de que toda dor, perda e morte encontrará, no fim, a resposta de Deus.'
-WHERE titulo = 'Jesus ressuscitou dos mortos?';
+WHERE id = 2;
  
 UPDATE questoes
 SET resposta = 'Pode-se confiar na Bíblia como documento histórico? Essa pergunta merece uma investigação séria, pois as afirmações bíblicas especialmente sobre Jesus têm implicações profundas.
@@ -223,7 +223,7 @@ Arqueólogos confirmaram repetidamente detalhes dos Evangelhos: o Pool de Betesd
 Os Evangelhos foram escritos por pessoas que viveram na época dos eventos narrados ou entrevistaram testemunhas oculares dentro da janela em que erros factuais seriam corrigidos por contemporâneos.
  
 Aplicação: A Bíblia não pede fé cega; ela convida à investigação. Aproximar-se dela como um documento sério é o primeiro passo para descobrir que ela fala com autoridade sobre o que mais importa.'
-WHERE titulo = 'A Bíblia é historicamente confiável?';
+WHERE id = 4;
  
 UPDATE questoes
 SET resposta = 'Guerras de extermínio, sacrifícios, punições severas o Antigo Testamento contém passagens que desconcertam leitores modernos e são frequentemente usadas como objeção ao caráter de Deus. Como entendê-las?
@@ -237,7 +237,7 @@ Além disso, os juízos mais radicais como a destruição de Canaã envolvem Deu
 O Antigo Testamento prepara o terreno para Cristo, que revela o caráter de Deus em sua plenitude: não a supressão da justiça, mas a reconciliação da justiça com a misericórdia na cruz.
  
 Aplicação: Ler o AT com paciência e contexto histórico não diminui a autoridade de Deus revela um Criador que leva o mal a sério enquanto trabalha, pacientemente, para restaurar a humanidade.'
-WHERE titulo = 'A violência no Antigo Testamento e o caráter de Deus';
+WHERE id = 11;
  
 UPDATE questoes
 SET resposta = '"Por que o cristianismo e não o islamismo, o budismo ou o hinduísmo?" Essa é uma pergunta legítima que merece uma resposta respeitosa e honesta.
@@ -249,4 +249,4 @@ O que torna o cristianismo singular é uma afirmação específica e verificáve
 A questão, portanto, não é "qual religião parece mais bonita ou consoladora?" mas "qual afirmação é verdadeira?" E a verdade se verifica por evidências históricas, filosóficas e existenciais um processo que o cristianismo sempre incentivou.
  
 Aplicação: Respeitar o sincero buscador de outra tradição não significa relativizar a verdade. O cristão pode dialogar com humildade, confiante de que a verdade sendo de Deus não tem o que temer da investigação honesta.'
-WHERE titulo = 'E quanto às outras religiões?';
+WHERE id = 7;

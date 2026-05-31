@@ -71,7 +71,7 @@
         </a>
         <nav>
             <ul class="menu">
-                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a class="pointer" onclick="irParaDash()">Dashboard</a></li>
                 <li><a href="biblioteca.html" class="ativo">Biblioteca</a></li>
             </ul>
         </nav>
@@ -147,6 +147,7 @@
     let questao_atual_id;
     let streak_obitida;
     let deve_aumentar_streak = true;
+    let usuario_novo = false;
     let cat_selecionada = 'todosCat';
     let dif_selecionada = 'todosDif';
     const div_sem_resul = document.getElementById('sem_resultados');
@@ -267,6 +268,8 @@
                         if (resposta.length == 0) {
 
                             console.log('Usuario novo, vai aumentar streak');
+
+                            usuario_novo = true;
 
                             streak_obitida = 0;
 
@@ -461,6 +464,8 @@
 
                 if (resposta.ok) {
 
+                    usuario_novo = false;
+
                     msgFeedback.innerHTML = `Avaliação salva com sucesso!`;
                     msgFeedback.classList.add('visivel');
 
@@ -478,6 +483,12 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+    }
+
+    function irParaDash() {
+        if (!usuario_novo) {
+            window.location = "dashboard.html";
+        }
     }
 
     function fecharExplicacao() {

@@ -96,7 +96,6 @@ a {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    flex-shrink: 0;
 }
 
 .logo_icone {

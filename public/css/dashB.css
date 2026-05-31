@@ -4,6 +4,10 @@
     gap: var(--espaco-sm);
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .usuario_info {
     display: flex;
     align-items: center;
@@ -28,7 +32,6 @@
     justify-content: center;
     font-weight: bold;
     font-size: var(--tamanho-base);
-    flex-shrink: 0;
 }
 
 .usuario_nome {
@@ -48,7 +51,6 @@
     padding: 2.25rem;
     margin-bottom: 2rem;
     position: relative;
-    overflow: hidden;
 }
 
 .bem_vindo_banner .subtitulo {
@@ -243,45 +245,6 @@
     gap: 1rem;
 }
 
-.busca_container {
-    position: relative;
-}
-
-.busca_icone {
-    position: absolute;
-    left: 0.875rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: var(--cor-texto-fraco);
-    pointer-events: none;
-}
-
-.input_busca {
-    padding-left: 2.5rem;
-    background-color: var(--cor-fundo-claro);
-    border: 1.5px solid var(--cor-borda-sutil);
-    color: var(--cor-texto-principal);
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-    padding-right: 0.875rem;
-    border-radius: var(--radius-md);
-    font-size: var(--tamanho-base);
-    font-family: Arial, Helvetica, sans-serif;
-    width: 100%;
-    transition: border-color var(--transicao), box-shadow var(--transicao);
-}
-
-.input_busca:focus {
-    outline: none;
-    border-color: var(--cor-secundaria);
-    box-shadow: 0 0 0 3px var(--cor-secundaria-sutil);
-}
-
-.input_busca::placeholder {
-    color: var(--cor-texto-fraco);
-}
-
 .filtros_botoes {
     display: flex;
     gap: 0.5rem;
@@ -381,7 +344,6 @@
 .questao_seta {
     color: var(--cor-texto-fraco);
     font-size: 1rem;
-    flex-shrink: 0;
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
@@ -443,7 +405,6 @@
 .explicacao_badges {
     display: flex;
     gap: 0.5rem;
-    flex-wrap: wrap;
 }
 
 .avaliacao {
@@ -451,7 +412,6 @@
     border-radius: var(--radius-xl);
     width: min(680px, 95vw);
     max-height: 40vh;
-    overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
@@ -488,7 +448,6 @@
     cursor: pointer;
     line-height: 1;
     padding: 0;
-    flex-shrink: 0;
 }
 
 .avaliacao_corpo {
@@ -523,7 +482,6 @@
     cursor: pointer;
     line-height: 1;
     padding: 0;
-    flex-shrink: 0;
     transition: color var(--transicao);
 }
 
@@ -573,6 +531,7 @@
     font-size: 0.875rem;
     color: var(--cor-texto-medio);
     line-height: 1.85;
+    /* Respeita quebra de linha com Enter no texto original */
     white-space: pre-line;
 }
 
